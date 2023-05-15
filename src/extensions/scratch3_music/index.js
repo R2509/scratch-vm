@@ -339,7 +339,7 @@ class Scratch3MusicBlocks {
                     description: 'Sound of a piano'
                 }),
                 dirName: '1-piano',
-                releaseTime: 0.05,
+                releaseTime: 0.1,
                 samples: [21, 27, 33, 39, 45, 51, 57, 63, 69, 75, 81]
             },
             {
@@ -349,8 +349,8 @@ class Scratch3MusicBlocks {
                     description: 'Sound of an electric piano'
                 }),
                 dirName: '2-electric-piano',
-                releaseTime: 0.5,
-                samples: [60]
+                releaseTime: 0.1,
+                samples: [24, 28, 36, 44, 52, 60, 68, 76, 84, 92, 100]
             },
             {
                 name: formatMessage({

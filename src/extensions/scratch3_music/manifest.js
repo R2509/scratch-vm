@@ -17,6 +17,9 @@ module.exports = {
     'drums/16-guiro.mp3': require('!arraybuffer-loader!./assets/drums/16-guiro.mp3'),
     'drums/17-vibraslap.mp3': require('!arraybuffer-loader!./assets/drums/17-vibraslap.mp3'),
     'drums/18-cuica.mp3': require('!arraybuffer-loader!./assets/drums/18-cuica.mp3'),
+
+    /* INSTRUMENTS */
+    // 1 - Piano
     'instruments/1-piano/21.mp3': require('!arraybuffer-loader!./assets/instruments/1-piano/21.mp3'),
     'instruments/1-piano/27.mp3': require('!arraybuffer-loader!./assets/instruments/1-piano/27.mp3'),
     'instruments/1-piano/33.mp3': require('!arraybuffer-loader!./assets/instruments/1-piano/33.mp3'),
@@ -28,8 +31,24 @@ module.exports = {
     'instruments/1-piano/69.mp3': require('!arraybuffer-loader!./assets/instruments/1-piano/69.mp3'),
     'instruments/1-piano/75.mp3': require('!arraybuffer-loader!./assets/instruments/1-piano/75.mp3'),
     'instruments/1-piano/81.mp3': require('!arraybuffer-loader!./assets/instruments/1-piano/81.mp3'),
+
+    // 2 - Electric Piano
+    'instruments/2-electric-piano/24.mp3': require('!arraybuffer-loader!./assets/instruments/2-electric-piano/24.mp3'),
+    'instruments/2-electric-piano/28.mp3': require('!arraybuffer-loader!./assets/instruments/2-electric-piano/28.mp3'),
+    'instruments/2-electric-piano/36.mp3': require('!arraybuffer-loader!./assets/instruments/2-electric-piano/36.mp3'),
+    'instruments/2-electric-piano/44.mp3': require('!arraybuffer-loader!./assets/instruments/2-electric-piano/44.mp3'),
+    'instruments/2-electric-piano/52.mp3': require('!arraybuffer-loader!./assets/instruments/2-electric-piano/52.mp3'),
     'instruments/2-electric-piano/60.mp3': require('!arraybuffer-loader!./assets/instruments/2-electric-piano/60.mp3'),
+    'instruments/2-electric-piano/68.mp3': require('!arraybuffer-loader!./assets/instruments/2-electric-piano/68.mp3'),
+    'instruments/2-electric-piano/76.mp3': require('!arraybuffer-loader!./assets/instruments/2-electric-piano/76.mp3'),
+    'instruments/2-electric-piano/84.mp3': require('!arraybuffer-loader!./assets/instruments/2-electric-piano/84.mp3'),
+    'instruments/2-electric-piano/92.mp3': require('!arraybuffer-loader!./assets/instruments/2-electric-piano/92.mp3'),
+    'instruments/2-electric-piano/100.mp3': require('!arraybuffer-loader!./assets/instruments/2-electric-piano/100.mp3'),
+
+    // 3 - Organ
     'instruments/3-organ/60.mp3': require('!arraybuffer-loader!./assets/instruments/3-organ/60.mp3'),
+
+    // TODO: replace samples for these
     'instruments/4-guitar/60.mp3': require('!arraybuffer-loader!./assets/instruments/4-guitar/60.mp3'),
     'instruments/5-electric-guitar/60.mp3': require(
         '!arraybuffer-loader!./assets/instruments/5-electric-guitar/60.mp3'

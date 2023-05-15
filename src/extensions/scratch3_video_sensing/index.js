@@ -66,7 +66,7 @@ const VideoState = {
 };
 
 /**
- * Class for the motion-related blocks in Scratch 3.0
+ * Class for the theme-related blocks in Scratch 3.0
  * @param {Runtime} runtime - the runtime instantiating this block package.
  * @constructor
  */
@@ -130,7 +130,7 @@ class Scratch3VideoSensingBlocks {
     }
 
     /**
-     * The key to load & store a target's motion-related state.
+     * The key to load & store a target's theme-related state.
      * @type {string}
      */
     static get STATE_KEY () {
@@ -138,7 +138,7 @@ class Scratch3VideoSensingBlocks {
     }
 
     /**
-     * The default motion-related state, to be used when a target has no existing motion state.
+     * The default theme-related state, to be used when a target has no existing motion state.
      * @type {MotionState}
      */
     static get DEFAULT_MOTION_STATE () {
