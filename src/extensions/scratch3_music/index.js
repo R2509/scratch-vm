@@ -339,8 +339,8 @@ class Scratch3MusicBlocks {
                     description: 'Sound of a piano'
                 }),
                 dirName: '1-piano',
-                releaseTime: 0.5,
-                samples: [24, 36, 48, 60, 72, 84, 96, 108]
+                releaseTime: 0.05,
+                samples: [21, 27, 33, 39, 45, 51, 57, 63, 69, 75, 81]
             },
             {
                 name: formatMessage({
@@ -359,7 +359,7 @@ class Scratch3MusicBlocks {
                     description: 'Sound of an organ'
                 }),
                 dirName: '3-organ',
-                releaseTime: 0.5,
+                releaseTime: 0.05,
                 samples: [60]
             },
             {
