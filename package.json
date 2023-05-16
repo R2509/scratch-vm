@@ -1,6 +1,6 @@
 {
   "name": "scratch-vm",
-  "version": "1.5.14",
+  "version": "1.5.58",
   "description": "Virtual Machine for Scratch 3.0",
   "author": "Massachusetts Institute of Technology",
   "license": "BSD-3-Clause",
@@ -8,7 +8,7 @@
   "repository": {
     "type": "git",
     "url": "https://github.com/LLK/scratch-vm.git",
-    "sha": "6a98abf8edcdfcb1e84173ed49dcd9e5d474d71c"
+    "sha": "91d8d073bf0f5638172c570d9598a9c280c4f7e9"
   },
   "main": "./dist/node/scratch-vm.js",
   "browser": "./src/index.js",
@@ -88,12 +88,12 @@
     "lodash.defaultsdeep": "4.6.1",
     "pngjs": "3.3.3",
     "scratch-audio": "0.1.0-prerelease.20221123180128",
-    "scratch-blocks": "0.1.0-prerelease.20230327133243",
-    "scratch-l10n": "3.15.20230326032128",
+    "scratch-blocks": "0.1.0-prerelease.20230515053831",
+    "scratch-l10n": "3.15.20230516032248",
     "scratch-render": "0.1.0-prerelease.20230318150639",
     "scratch-render-fonts": "1.0.0-prerelease.20221102164332",
     "scratch-semantic-release-config": "1.0.7",
-    "scratch-storage": "2.2.0",
+    "scratch-storage": "2.2.1",
     "scratch-svg-renderer": "0.2.0-prerelease.20210727023023",
     "script-loader": "0.7.2",
     "semantic-release": "19.0.5",
