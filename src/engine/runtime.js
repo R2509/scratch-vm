@@ -25,7 +25,7 @@ const Keyboard = require('../io/keyboard');
 const Mouse = require('../io/mouse');
 const MouseWheel = require('../io/mouseWheel');
 const UserData = require('../io/userData');
-const Video = require('../io/video');
+const Video = require('../io/video');2
 
 const StringUtil = require('../util/string-util');
 const uid = require('../util/uid');

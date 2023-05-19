@@ -11,8 +11,10 @@ const Timer = require('../../util/timer');
  * @type {object}
  */
 let assetData = {};
+let midiAssetData = {};
 try {
     assetData = require('./manifest');
+    midiAssetData = require('./midi-samples/instruments.js');
 } catch (e) {
     // Non-webpack environment, don't worry about assets.
 }
@@ -29,7 +31,7 @@ const blockIconURI = 'data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iNDAiIGhlaWdodD0i
  * @type {string}
  */
 // eslint-disable-next-line max-len
-const menuIconURI = 'data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iMjAiIGhlaWdodD0iMjAiIHhtbG5zPSJodHRwOi8vd3d3LnczLm9yZy8yMDAwL3N2ZyI+PHBhdGggZD0iTTE2LjA5IDEyLjkzN2MuMjI4IDEuMTQxLS44MzMgMi4wNjMtMi4zNzMgMi4wNjMtMS41MzUgMC0yLjk2Mi0uOTIyLTMuMTg2LTIuMDYzLS4yMy0xLjE0Mi44MzMtMi4wNjggMi4zNzItMi4wNjguMzIzIDAgLjY0MS4wNDIuOTQ1LjExN2EzLjUgMy41IDAgMCAxIC40NjguMTUxYy40MzUtLjAxLS4wNTItMS4xNDctLjkxNy02LjExNC0xLjA2Ny02LjE1MiAxLjUzLS45MzUgNC4zODQtMS4zNzcgMi44NTQtLjQ0Mi4wMzggMi40MS0xLjgyNSAxLjkyMi0xLjg2Mi0uNDkzLTIuMzI1LTMuNTc3LjEzMiA3LjM3ek03LjQ2IDguNTYzYy0xLjg2Mi0uNDkzLTIuMzI1LTMuNTc2LjEzIDcuMzdDNy44MTYgMTcuMDczIDYuNzU0IDE4IDUuMjIgMThjLTEuNTM1IDAtMi45NjEtLjkyNi0zLjE5LTIuMDY4LS4yMjQtMS4xNDIuODM3LTIuMDY3IDIuMzc1LTIuMDY3LjUwMSAwIC45ODcuMDk4IDEuNDI3LjI3Mi40MTItLjAyOC0uMDc0LTEuMTg5LS45My02LjExNEMzLjgzNCAxLjg3IDYuNDMgNy4wODcgOS4yODIgNi42NDZjMi44NTQtLjQ0Ny4wMzggMi40MS0xLjgyMyAxLjkxN3oiIGZpbGw9IiM1NzVFNzUiIGZpbGwtcnVsZT0iZXZlbm9kZCIvPjwvc3ZnPg==';
+const menuIconURI = 'data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iMjAiIGhlaWdodD0iMj8AiIHhtbG5zPSJodHRwOi8vd3d3LnczLm9yZy8yMDAwL3N2ZyI+PHBhdGggZD0iTTE2LjA5IDEyLjkzN2MuMjI4IDEuMTQxLS44MzMgMi4wNjMtMi4zNzMgMi4wNjMtMS41MzUgMC0yLjk2Mi0uOTIyLTMuMTg2LTIuMDYzLS4yMy0xLjE0Mi44MzMtMi4wNjggMi4zNzItMi4wNjguMzIzIDAgLjY0MS4wNDIuOTQ1LjExN2EzLjUgMy41IDAgMCAxIC40NjguMTUxYy40MzUtLjAxLS4wNTItMS4xNDctLjkxNy02LjExNC0xLjA2Ny02LjE1MiAxLjUzLS45MzUgNC4zODQtMS4zNzcgMi44NTQtLjQ0Mi4wMzggMi40MS0xLjgyNSAxLjkyMi0xLjg2Mi0uNDkzLTIuMzI1LTMuNTc3LjEzMiA3LjM3ek03LjQ2IDguNTYzYy0xLjg2Mi0uNDkzLTIuMzI1LTMuNTc2LjEzIDcuMzdDNy44MTYgMTcuMDczIDYuNzU0IDE4IDUuMjIgMThjLTEuNTM1IDAtMi45NjEtLjkyNi0zLjE5LTIuMDY4LS4yMjQtMS4xNDIuODM3LTIuMDY3IDIuMzc1LTIuMDY3LjUwMSAwIC45ODcuMDk4IDEuNDI3LjI3Mi40MTItLjAyOC0uMDc0LTEuMTg5LS45My02LjExNEMzLjgzNCAxLjg3IDYuNDMgNy4wODcgOS4yODIgNi42NDZjMi44NTQtLjQ0Ny4wMzggMi40MS0xLjgyMyAxLjkxN3oiIGZpbGw9IiM1NzVFNzUiIGZpbGwtcnVsZT0iZXZlbm9kZCIvPjwvc3ZnPg==';
 
 /**
  * Class for the music-related blocks in Scratch 3.0
@@ -81,6 +83,22 @@ class Scratch3MusicBlocks {
          */
         this._bufferSources = [];
 
+        /**
+         * [MIDI] An array of arrays of sound players. Each instrument has one or more audio players.
+         * @type {Array[]}
+         * @private
+         */
+        this._midiInstrumentPlayerArrays = [];
+
+        /**
+         * [MIDI] An array of arrays of sound players. Each instrument mya have an audio player for each playable note.
+         * @type {Array[]}
+         * @private
+         */
+        this._midiInstrumentPlayerNoteArrays = [];
+
+
+
         this._loadAllSounds();
 
         this._onTargetCreated = this._onTargetCreated.bind(this);
@@ -95,6 +113,7 @@ class Scratch3MusicBlocks {
      */
     _loadAllSounds () {
         const loadingPromises = [];
+        console.log(assetData)
         this.DRUM_INFO.forEach((drumInfo, index) => {
             const filePath = `drums/${drumInfo.fileName}`;
             const promise = this._storeSound(filePath, index, this._drumPlayers);
@@ -105,6 +124,17 @@ class Scratch3MusicBlocks {
             this._instrumentPlayerNoteArrays[instrumentIndex] = [];
             instrumentInfo.samples.forEach((sample, noteIndex) => {
                 const filePath = `instruments/${instrumentInfo.dirName}/${sample}`;
+                const promise = this._storeSound(filePath, noteIndex, this._instrumentPlayerArrays[instrumentIndex]);
+                loadingPromises.push(promise);
+            });
+        });
+
+        // MIDI Samples
+        this.INSTRUMENT_INFO.forEach((instrumentInfo, instrumentIndex) => {
+            this._midiInstrumentPlayerArrays[instrumentIndex] = [];
+            this._midiInstrumentPlayerNoteArrays[instrumentIndex] = [];
+            instrumentInfo.samples.forEach((sample, noteIndex) => {
+                const filePath = `instruments/${instrumentInfo.midiDirName}/${sample}`;
                 const promise = this._storeSound(filePath, noteIndex, this._instrumentPlayerArrays[instrumentIndex]);
                 loadingPromises.push(promise);
             });
@@ -123,7 +153,6 @@ class Scratch3MusicBlocks {
      */
     _storeSound (filePath, index, playerArray) {
         const fullPath = `${filePath}.mp3`;
-
         if (!assetData[fullPath]) return;
 
         // The sound player has already been downloaded via the manifest file required above.
@@ -339,6 +368,7 @@ class Scratch3MusicBlocks {
                     description: 'Sound of a piano'
                 }),
                 dirName: '1-piano',
+                midiDirName: '1',
                 releaseTime: 0.1,
                 samples: [21, 27, 33, 39, 45, 51, 57, 63, 69, 75, 81]
             },
@@ -349,6 +379,7 @@ class Scratch3MusicBlocks {
                     description: 'Sound of an electric piano'
                 }),
                 dirName: '2-electric-piano',
+                midiDirName: '2',
                 releaseTime: 0.1,
                 samples: [24, 28, 36, 44, 52, 60, 68, 76, 84, 92, 100]
             },
@@ -359,6 +390,7 @@ class Scratch3MusicBlocks {
                     description: 'Sound of an organ'
                 }),
                 dirName: '3-organ',
+                midiDirName: '3',
                 releaseTime: 0.05,
                 samples: [60]
             },
@@ -369,6 +401,7 @@ class Scratch3MusicBlocks {
                     description: 'Sound of an accoustic guitar'
                 }),
                 dirName: '4-guitar',
+                midiDirName: '4',
                 releaseTime: 0.5,
                 samples: [60]
             },
@@ -379,6 +412,7 @@ class Scratch3MusicBlocks {
                     description: 'Sound of an electric guitar'
                 }),
                 dirName: '5-electric-guitar',
+                midiDirName: '5',
                 releaseTime: 0.5,
                 samples: [60]
             },
@@ -389,6 +423,7 @@ class Scratch3MusicBlocks {
                     description: 'Sound of an accoustic upright bass'
                 }),
                 dirName: '6-bass',
+                midiDirName: '6',
                 releaseTime: 0.25,
                 samples: [36, 48]
             },
@@ -399,6 +434,7 @@ class Scratch3MusicBlocks {
                     description: 'Sound of a string instrument (e.g. violin) being plucked'
                 }),
                 dirName: '7-pizzicato',
+                midiDirName: '7',
                 releaseTime: 0.25,
                 samples: [60]
             },
@@ -409,6 +445,7 @@ class Scratch3MusicBlocks {
                     description: 'Sound of a cello being played with a bow'
                 }),
                 dirName: '8-cello',
+                midiDirName: '8',
                 releaseTime: 0.1,
                 samples: [36, 48, 60]
             },
@@ -419,6 +456,7 @@ class Scratch3MusicBlocks {
                     description: 'Sound of a trombone being played'
                 }),
                 dirName: '9-trombone',
+                midiDirName: '9',
                 samples: [36, 48, 60]
             },
             {
@@ -428,6 +466,7 @@ class Scratch3MusicBlocks {
                     description: 'Sound of a clarinet being played'
                 }),
                 dirName: '10-clarinet',
+                midiDirName: '10',
                 samples: [48, 60]
             },
             {
@@ -437,6 +476,7 @@ class Scratch3MusicBlocks {
                     description: 'Sound of a saxophone being played'
                 }),
                 dirName: '11-saxophone',
+                midiDirName: '11',
                 samples: [36, 60, 84]
             },
             {
@@ -446,6 +486,7 @@ class Scratch3MusicBlocks {
                     description: 'Sound of a flute being played'
                 }),
                 dirName: '12-flute',
+                midiDirName: '12',
                 samples: [60, 72]
             },
             {
@@ -455,6 +496,7 @@ class Scratch3MusicBlocks {
                     description: 'Sound of a wooden flute being played'
                 }),
                 dirName: '13-wooden-flute',
+                midiDirName: '13',
                 samples: [60, 72]
             },
             {
@@ -464,6 +506,7 @@ class Scratch3MusicBlocks {
                     description: 'Sound of a bassoon being played'
                 }),
                 dirName: '14-bassoon',
+                midiDirName: '14',
                 samples: [36, 48, 60]
             },
             {
@@ -473,6 +516,7 @@ class Scratch3MusicBlocks {
                     description: 'Sound of a choir singing'
                 }),
                 dirName: '15-choir',
+                midiDirName: '15',
                 releaseTime: 0.25,
                 samples: [48, 60, 72]
             },
@@ -483,6 +527,7 @@ class Scratch3MusicBlocks {
                     description: 'Sound of a vibraphone being struck'
                 }),
                 dirName: '16-vibraphone',
+                midiDirName: '16',
                 releaseTime: 0.5,
                 samples: [60, 72]
             },
@@ -493,6 +538,7 @@ class Scratch3MusicBlocks {
                     description: 'Sound of a music box playing'
                 }),
                 dirName: '17-music-box',
+                midiDirName: '17',
                 releaseTime: 0.25,
                 samples: [60]
             },
@@ -503,6 +549,7 @@ class Scratch3MusicBlocks {
                     description: 'Sound of a steel drum being struck'
                 }),
                 dirName: '18-steel-drum',
+                midiDirName: '18',
                 releaseTime: 0.5,
                 samples: [60]
             },
@@ -513,6 +560,7 @@ class Scratch3MusicBlocks {
                     description: 'Sound of a marimba being struck'
                 }),
                 dirName: '19-marimba',
+                midiDirName: '19',
                 samples: [60]
             },
             {
@@ -522,6 +570,7 @@ class Scratch3MusicBlocks {
                     description: 'Sound of a "lead" synthesizer being played'
                 }),
                 dirName: '20-synth-lead',
+                midiDirName: '20',
                 releaseTime: 0.1,
                 samples: [60]
             },
@@ -532,6 +581,7 @@ class Scratch3MusicBlocks {
                     description: 'Sound of a "pad" synthesizer being played'
                 }),
                 dirName: '21-synth-pad',
+                midiDirName: '21',
                 releaseTime: 0.25,
                 samples: [60]
             }
@@ -692,7 +742,7 @@ class Scratch3MusicBlocks {
      * @type {{min: number, max: number}}
      */
     static get MIDI_NOTE_RANGE () {
-        return {min: 0, max: 130};
+        return {min: 0, max: 127};
     }
 
     /**
@@ -708,7 +758,7 @@ class Scratch3MusicBlocks {
      * @type {{min: number, max: number}}
      */
     static get TEMPO_RANGE () {
-        return {min: 20, max: 500};
+        return {min: 5, max: 500};
     }
 
     /**
@@ -716,7 +766,7 @@ class Scratch3MusicBlocks {
      * @type {number}
      */
     static get CONCURRENCY_LIMIT () {
-        return 30;
+        return 64;
     }
 
     /**
@@ -788,7 +838,7 @@ class Scratch3MusicBlocks {
                     blockType: BlockType.COMMAND,
                     text: formatMessage({
                         id: 'music.midiPlayDrumForBeats',
-                        default: 'play drum [DRUM] for [BEATS] beats',
+                        default: 'play MIDI drum [DRUM] for [BEATS] beats',
                         description: 'play drum sample for a number of beats according to a mapping of MIDI codes'
                     }),
                     arguments: {
@@ -802,7 +852,7 @@ class Scratch3MusicBlocks {
                             defaultValue: 0.25
                         }
                     },
-                    hideFromPalette: true
+                    hideFromPalette: false
                 },
                 {
                     opcode: 'restForBeats',
@@ -859,7 +909,7 @@ class Scratch3MusicBlocks {
                     blockType: BlockType.COMMAND,
                     text: formatMessage({
                         id: 'music.midiSetInstrument',
-                        default: 'set instrument to [INSTRUMENT]',
+                        default: 'set MIDI instrument to [INSTRUMENT]',
                         description: 'set the instrument for notes played according to a mapping of MIDI codes'
                     }),
                     arguments: {
@@ -868,7 +918,7 @@ class Scratch3MusicBlocks {
                             defaultValue: 1
                         }
                     },
-                    hideFromPalette: true
+                    hideFromPalette: false
                 },
                 {
                     opcode: 'setTempo',
@@ -881,7 +931,7 @@ class Scratch3MusicBlocks {
                     arguments: {
                         TEMPO: {
                             type: ArgumentType.NUMBER,
-                            defaultValue: 60
+                            defaultValue: 120
                         }
                     }
                 },
@@ -908,6 +958,29 @@ class Scratch3MusicBlocks {
                         description: 'get the current tempo (speed) for notes, drums, and rests played'
                     }),
                     blockType: BlockType.REPORTER
+                },
+                {
+                    opcode: 'midiPlayNoteForBeats',
+                    blockType: BlockType.COMMAND,
+                    text: formatMessage({
+                        id: 'music.midiPlayNoteForBeats',
+                        default: '\[MIDI\] play note [NOTE] for [BEATS] beats with a velocity of [VELOCITY]',
+                        description: 'play a note for a number of beats using the MIDI system.'
+                    }),
+                    arguments: {
+                        NOTE: {
+                            type: ArgumentType.NOTE,
+                            defaultValue: 60
+                        },
+                        BEATS: {
+                            type: ArgumentType.NUMBER,
+                            defaultValue: 0.25
+                        },
+                        VELOCITY: {
+                            type: ArgumentType.NUMBER,
+                            defaultValue: 110
+                        }
+                    }
                 }
             ],
             menus: {
@@ -1063,6 +1136,38 @@ class Scratch3MusicBlocks {
         }
     }
 
+    /**
+     * Play a note using the current musical instrument for some number of beats.
+     * This function processes the arguments, and handles the timing of the block's execution.
+     * @param {object} args - the block arguments.
+     * @param {object} util - utility object provided by the runtime.
+     * @property {number} NOTE - the pitch of the note to play, interpreted as a MIDI note number.
+     * @property {number} BEATS - the duration in beats of the note.
+     */
+    midiPlayNoteForBeats (args, util) {
+        if (this._stackTimerNeedsInit(util)) {
+            let note = Cast.toNumber(args.NOTE);
+            note = MathUtil.clamp(note,
+                Scratch3MusicBlocks.MIDI_NOTE_RANGE.min, Scratch3MusicBlocks.MIDI_NOTE_RANGE.max);
+            let beats = Cast.toNumber(args.BEATS);
+            beats = this._clampBeats(beats);
+            // If the duration is 0, do not play the note. In Scratch 2.0, "play drum for 0 beats" plays the drum,
+            // but "play note for 0 beats" is silent.
+            if (beats === 0) return;
+
+            const durationSec = this._beatsToSec(beats);
+            console.log('playing note with args:', args)
+            console.log('util:', util)
+
+            this._playNote(util, note, durationSec);
+
+            this._startStackTimer(util, durationSec);
+        } else {
+            console.log('checking timer?')
+            this._checkStackTimer(util);
+        }
+    }
+
     _playNoteForPicker (noteNum, category) {
         if (category !== this.getInfo().name) return;
         const util = {
@@ -1139,7 +1244,7 @@ class Scratch3MusicBlocks {
         const releaseStart = context.currentTime + durationSec;
         const releaseEnd = releaseStart + releaseDuration;
         releaseGain.gain.setValueAtTime(1, releaseStart);
-        releaseGain.gain.linearRampToValueAtTime(0.0001, releaseEnd);
+        releaseGain.gain.exponentialRampToValueAtTime(0.0001, releaseEnd);
 
         this._concurrencyCounter++;
         player.once('stop', () => {

@@ -1,0 +1,67 @@
+module.exports = {
+    // 1 - Piano
+    'instruments/1/21.mp3': require('!arraybuffer-loader!./instruments/1/21.mp3'),
+    'instruments/1/27.mp3': require('!arraybuffer-loader!./instruments/1/27.mp3'),
+    'instruments/1/33.mp3': require('!arraybuffer-loader!./instruments/1/33.mp3'),
+    'instruments/1/39.mp3': require('!arraybuffer-loader!./instruments/1/39.mp3'),
+    'instruments/1/45.mp3': require('!arraybuffer-loader!./instruments/1/45.mp3'),
+    'instruments/1/51.mp3': require('!arraybuffer-loader!./instruments/1/51.mp3'),
+    'instruments/1/57.mp3': require('!arraybuffer-loader!./instruments/1/57.mp3'),
+    'instruments/1/63.mp3': require('!arraybuffer-loader!./instruments/1/63.mp3'),
+    'instruments/1/69.mp3': require('!arraybuffer-loader!./instruments/1/69.mp3'),
+    'instruments/1/75.mp3': require('!arraybuffer-loader!./instruments/1/75.mp3'),
+    'instruments/1/81.mp3': require('!arraybuffer-loader!./instruments/1/81.mp3'),
+
+    // 2 - Electric Piano
+    'instruments/2/24.mp3': require('!arraybuffer-loader!./instruments/2/24.mp3'),
+    'instruments/2/28.mp3': require('!arraybuffer-loader!./instruments/2/28.mp3'),
+    'instruments/2/36.mp3': require('!arraybuffer-loader!./instruments/2/36.mp3'),
+    'instruments/2/44.mp3': require('!arraybuffer-loader!./instruments/2/44.mp3'),
+    'instruments/2/52.mp3': require('!arraybuffer-loader!./instruments/2/52.mp3'),
+    'instruments/2/60.mp3': require('!arraybuffer-loader!./instruments/2/60.mp3'),
+    'instruments/2/68.mp3': require('!arraybuffer-loader!./instruments/2/68.mp3'),
+    'instruments/2/76.mp3': require('!arraybuffer-loader!./instruments/2/76.mp3'),
+    'instruments/2/84.mp3': require('!arraybuffer-loader!./instruments/2/84.mp3'),
+    'instruments/2/92.mp3': require('!arraybuffer-loader!./instruments/2/92.mp3'),
+    'instruments/2/100.mp3': require('!arraybuffer-loader!./instruments/2/100.mp3'),
+
+    // 3 - Organ
+    'instruments/3/60.mp3': require('!arraybuffer-loader!./instruments/3/60.mp3'),
+
+    // TODO: replace samples for these
+    'instruments/4/60.mp3': require('!arraybuffer-loader!./instruments/4/60.mp3'),
+    'instruments/5/60.mp3': require(
+        '!arraybuffer-loader!./instruments/5/60.mp3'
+    ),
+    'instruments/6/36.mp3': require('!arraybuffer-loader!./instruments/6/36.mp3'),
+    'instruments/6/48.mp3': require('!arraybuffer-loader!./instruments/6/48.mp3'),
+    'instruments/7/60.mp3': require('!arraybuffer-loader!./instruments/7/60.mp3'),
+    'instruments/8/36.mp3': require('!arraybuffer-loader!./instruments/8/36.mp3'),
+    'instruments/8/48.mp3': require('!arraybuffer-loader!./instruments/8/48.mp3'),
+    'instruments/8/60.mp3': require('!arraybuffer-loader!./instruments/8/60.mp3'),
+    'instruments/9/36.mp3': require('!arraybuffer-loader!./instruments/9/36.mp3'),
+    'instruments/9/48.mp3': require('!arraybuffer-loader!./instruments/9/48.mp3'),
+    'instruments/9/60.mp3': require('!arraybuffer-loader!./instruments/9/60.mp3'),
+    'instruments/10/48.mp3': require('!arraybuffer-loader!./instruments/10/48.mp3'),
+    'instruments/10/60.mp3': require('!arraybuffer-loader!./instruments/10/60.mp3'),
+    'instruments/11/36.mp3': require('!arraybuffer-loader!./instruments/11/36.mp3'),
+    'instruments/11/60.mp3': require('!arraybuffer-loader!./instruments/11/60.mp3'),
+    'instruments/11/84.mp3': require('!arraybuffer-loader!./instruments/11/84.mp3'),
+    'instruments/12/60.mp3': require('!arraybuffer-loader!./instruments/12/60.mp3'),
+    'instruments/12/72.mp3': require('!arraybuffer-loader!./instruments/12/72.mp3'),
+    'instruments/13/60.mp3': require('!arraybuffer-loader!./instruments/13/60.mp3'),
+    'instruments/13/72.mp3': require('!arraybuffer-loader!./instruments/13/72.mp3'),
+    'instruments/14/36.mp3': require('!arraybuffer-loader!./instruments/14/36.mp3'),
+    'instruments/14/48.mp3': require('!arraybuffer-loader!./instruments/14/48.mp3'),
+    'instruments/14/60.mp3': require('!arraybuffer-loader!./instruments/14/60.mp3'),
+    'instruments/15/48.mp3': require('!arraybuffer-loader!./instruments/15/48.mp3'),
+    'instruments/15/60.mp3': require('!arraybuffer-loader!./instruments/15/60.mp3'),
+    'instruments/15/72.mp3': require('!arraybuffer-loader!./instruments/15/72.mp3'),
+    'instruments/16/60.mp3': require('!arraybuffer-loader!./instruments/16/60.mp3'),
+    'instruments/16/72.mp3': require('!arraybuffer-loader!./instruments/16/72.mp3'),
+    'instruments/17/60.mp3': require('!arraybuffer-loader!./instruments/17/60.mp3'),
+    'instruments/18/60.mp3': require('!arraybuffer-loader!./instruments/18/60.mp3'),
+    'instruments/19/60.mp3': require('!arraybuffer-loader!./instruments/19/60.mp3'),
+    'instruments/20/60.mp3': require('!arraybuffer-loader!./instruments/20/60.mp3'),
+    'instruments/21/60.mp3': require('!arraybuffer-loader!./instruments/21/60.mp3')
+};
